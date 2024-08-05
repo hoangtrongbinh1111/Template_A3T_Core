@@ -6,6 +6,7 @@
     - Có thể cấu hình thêm các file khác phục vụ mục đích hỗ trợ các hàm chính
 4. Flow thêm socket:
     - Bước 1: Vào file app.py để nhận luồng socket
+        ```
         @sio.on("<tên event>")
         async def <tên event>_listener(data):
             Thread(target=await <tên event>_thread(data)).start()
@@ -40,6 +41,7 @@
                     }
                 ),
             )
+        ```
 5. Flow chi tiết về A3T-core
 - Định nghĩa các file train, test, inference trong các file python tương ứng
 - Các file train, test, inference thì nên đặt ra các file riêng, và xử lý 1 hàm, có đầu vào là các input tương ứng tùy thuộc vào mô hình và xác định bài toán. Các biến chung cần có bao gồm:
@@ -51,6 +53,8 @@
                 yield res_per_epoch
 - Thêm try...catch ở các func để tránh treo hệ thống.
 - Cấu trúc file app.py làm theo code mẫu, chỉ thay đổi ở các phần socket gọi đến các mô hình AI tương ứng và thay đổi các biến hệ thống:
+    ```
     TIMEOUT_LIMIT = 60 * 60 * 24  # Thời gian chờ đợi để đưa ra kết quả mô hình AI, nếu vượt quá thời gian sẽ break
     SOCKET_BACKEND_URL = "http://url-phishing-service:12007" # đường dẫn kết nối socket tới A3T-service
     PORT = 12009 # cổng dể đẩy hệ thống chạy trên môi trường test và product
+    ```
